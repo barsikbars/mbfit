@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Азбука Движения — Женская студия йоги, пилатеса и медитации</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ПЕРЕМЕННЫЕ И БАЗА ===== */
+        :root {
+            --primary: #6B4F4F;      /* Теплый коричневый */
+            --accent: #D4A5A5;       /* Пыльная роза */
+            --accent-dark: #B88A8A;
+            --bg-light: #FAF7F2;     /* Светлый бежевый */
+            --bg-white: #FFFFFF;
+            --text-dark: #3A2E2E;
+            --text-muted: #7A6B6B;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --shadow: 0 10px 30px rgba(107, 79, 79, 0.08);
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; color: var(--primary); }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.1rem; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 4rem 0; }
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #fff;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn:hover { background-color: var(--accent-dark); transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-outline:hover { background: var(--accent); color: #fff; }
+
+        /* ===== ШАПКА ===== */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            transition: var(--transition);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: var(--primary); letter-spacing: 0.5px; }
+        .logo span { color: var(--accent); }
+        nav { display: flex; align-items: center; gap: 2rem; }
+        nav a { font-weight: 400; font-size: 0.95rem; color: var(--text-dark); transition: var(--transition); position: relative; }
+        nav a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--accent); transition: var(--transition);
+        }
+        nav a:hover::after { width: 100%; }
+        .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 10px; }
+        .burger span { width: 25px; height: 2px; background: var(--primary); transition: var(--transition); }
+        .mobile-nav {
+            display: none; position: fixed; top: 70px; left: 0; width: 100%; background: #fff;
+            padding: 1.5rem; flex-direction: column; gap: 1rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            z-index: 999; border-top: 1px solid #eee;
+        }
+        .mobile-nav.active { display: flex; }
+        .mobile-nav a { font-size: 1.1rem; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 100vh; min-height: 600px;
+            background: linear-gradient(rgba(58, 46, 46, 0.4), rgba(58, 46, 46, 0.5)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            padding: 0 1rem; margin-top: 0;
+        }
+        .hero-content { max-width: 800px; color: #fff; }
+        .hero h1 { font-size: 4rem; color: #fff; margin-bottom: 1rem; line-height: 1.2; text-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.95; font-weight: 300; }
+        .hero .btn { margin: 0 0.5rem; }
+
+        /* ===== О СТУДИИ ===== */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .about-img { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+        .about-img img { width: 100%; height: 400px; object-fit: cover; transition: var(--transition); }
+        .about-img img:hover { transform: scale(1.03); }
+        .about-text h2 { text-align: left; font-size: 2.2rem; }
+        .about-text p { color: var(--text-muted); margin-bottom: 1.5rem; }
+
+        /* ===== НАПРАВЛЕНИЯ ===== */
+        .directions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .direction-card {
+            background: var(--bg-white); padding: 2.5rem 2rem; border-radius: 20px;
+            text-align: center; box-shadow: var(--shadow); transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+        .direction-card:hover { transform: translateY(-8px); border-bottom-color: var(--accent); }
+        .direction-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+        .direction-card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; }
+        .direction-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ===== РАСПИСАНИЕ ===== */
+        .schedule-section { background: var(--bg-white); }
+        .schedule-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-top: 1rem; }
+        .schedule-table th { text-align: left; padding: 1rem 1.5rem; font-family: var(--font-heading); color: var(--primary); font-weight: 600; }
+        .schedule-table td { background: var(--bg-light); padding: 1.2rem 1.5rem; border-radius: 10px; }
+        .schedule-table tr td:first-child { border-radius: 10px 0 0 10px; font-weight: 700; color: var(--primary); }
+        .schedule-table tr td:last-child { border-radius: 0 10px 10px 0; }
+
+        /* ===== ТРЕНЕРЫ ===== */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+        .team-card { text-align: center; background: var(--bg-white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); }
+        .team-card:hover { transform: translateY(-5px); }
+        .team-img { height: 300px; overflow: hidden; }
+        .team-img img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .team-card:hover .team-img img { transform: scale(1.05); }
+        .team-info { padding: 1.5rem; }
+        .team-info h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+        .team-info span { color: var(--accent); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .team-info p { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.8rem; }
+
+        /* ===== ГАЛЕРЕЯ ===== */
+        .gallery-section { background: var(--bg-white); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .gallery-item { border-radius: 15px; overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 1; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item::after {
+            content: '🔍'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 1.5rem; opacity: 0; transition: var(--transition); background: rgba(255,255,255,0.8);
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .gallery-item:hover::after { opacity: 1; }
+        /* Лайтбокс */
+        .lightbox {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;
+            padding: 2rem;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 10px; }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px; font-size: 2.5rem; color: #fff;
+            cursor: pointer; background: none; border: none;
+        }
+
+        /* ===== ОТЗЫВЫ (КАРУСЕЛЬ) ===== */
+        .testimonials-section { background: var(--bg-light); overflow: hidden; }
+        .testimonial-carousel { position: relative; max-width: 800px; margin: 0 auto; }
+        .testimonial-track { display: flex; transition: transform 0.5s ease; }
+        .testimonial-slide {
+            min-width: 100%; padding: 2.5rem; background: var(--bg-white); border-radius: 20px;
+            box-shadow: var(--shadow); text-align: center;
+        }
+        .testimonial-slide p { font-size: 1.1rem; font-style: italic; color: var(--text-dark); margin-bottom: 1.5rem; line-height: 1.8; }
+        .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .testimonial-author img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+        .testimonial-author strong { display: block; color: var(--primary); font-size: 1rem; }
+        .testimonial-author span { color: var(--text-muted); font-size: 0.85rem; }
+        .carousel-controls { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        .carousel-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent);
+            background: transparent; color: var(--accent); font-size: 1.2rem; cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center; justify-content: center;
+        }
+        .carousel-btn:hover { background: var(--accent); color: #fff; }
+
+        /* ===== FAQ ===== */
+        .faq-section { background: var(--bg-white); }
+        .faq-item { border-bottom: 1px solid #eee; padding: 1.2rem 0; cursor: pointer; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+        .faq-question span { font-size: 1.5rem; transition: var(--transition); color: var(--accent); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--text-muted); padding-top: 0; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-top: 1rem; }
+        .faq-item.active .faq-question span { transform: rotate(45deg); }
+
+        /* ===== КОНТАКТЫ ===== */
+        .contact-section { background: var(--bg-light); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-info h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+        .contact-item .icon { font-size: 1.3rem; color: var(--accent); min-width: 30px; }
+        .contact-item p { margin: 0; color: var(--text-muted); }
+        .contact-item a { color: var(--primary); font-weight: 700; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a {
+            display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;
+            background: var(--bg-white); border-radius: 50%; box-shadow: var(--shadow);
+            font-size: 1.2rem; transition: var(--transition);
+        }
+        .social-links a:hover { background: var(--accent); color: #fff; }
+        .contact-form { background: var(--bg-white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 700; font-size: 0.9rem; color: var(--primary); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.9rem 1rem; border: 2px solid #eee; border-radius: 10px;
+            font-family: inherit; font-size: 1rem; transition: var(--transition); background: var(--bg-light);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--accent); background: #fff;
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .contact-form .btn { width: 100%; margin-top: 0.5rem; }
+        .map-container { margin-top: 2rem; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); height: 250px; }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+        /* ===== ПОДВАЛ ===== */
+        footer { background: var(--primary); color: #ddd; padding: 3rem 0 1.5rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-col h4 { color: var(--accent); font-family: var(--font-heading); margin-bottom: 1rem; font-size: 1.1rem; }
+        .footer-col a { display: block; color: #ccc; margin-bottom: 0.5rem; font-size: 0.9rem; transition: var(--transition); }
+        .footer-col a:hover { color: var(--accent); }
+        .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #aaa; }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-img img { height: 300px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-inner { padding: 0.8rem 5%; }
+            nav { display: none; }
+            .burger { display: flex; }
+            h2 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .hero .btn { display: block; margin: 0.5rem auto; width: 80%; max-width: 300px; }
+            .container { padding: 3rem 0; }
+            .schedule-table th, .schedule-table td { padding: 0.8rem 0.8rem; font-size: 0.85rem; }
+            .testimonial-slide { padding: 1.5rem; }
+            .testimonial-slide p { font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+            .directions-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">Азбука <span>Движения</span></div>
+            <nav>
+                <a href="#about">О студии</a>
+                <a href="#directions">Направления</a>
+                <a href="#schedule">Расписание</a>
+                <a href="#team">Тренеры</a>
+                <a href="#gallery">Галерея</a>
+                <a href="#testimonials">Отзывы</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+            <button class="burger" id="burgerBtn" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- МОБИЛЬНОЕ МЕНЮ -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#about">О студии</a>
+        <a href="#directions">Направления</a>
+        <a href="#schedule">Расписание</a>
+        <a href="#team">Тренеры</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#testimonials">Отзывы</a>
+        <a href="#contact">Контакты</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Азбука Движения</h1>
+            <p>Пространство гармонии для женщин. Йога, медитация и пилатес в атмосфере заботы и поддержки.</p>
+            <a href="#contact" class="btn">Записаться на первое занятие</a>
+            <a href="#directions" class="btn btn-outline">Узнать больше</a>
+        </div>
+    </section>
+
+    <!-- О СТУДИИ -->
+    <section id="about" class="container">
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия Азбука Движения">
+            </div>
+            <div class="about-text">
+                <h2>О студии</h2>
+                <p>«Азбука Движения» — это не просто фитнес-студия. Это место, где каждая женщина может замедлиться, услышать себя и восстановить внутренний баланс.</p>
+                <p>Мы создали безопасное и поддерживающее пространство, где нет оценок и сравнений. Только вы, ваше тело и бережные инструкторы, которые помогут освоить движение с нуля.</p>
+                <p>Наши направления — йога, медитация, пилатес и растяжка — подходят для любого уровня подготовки. Мы верим, что гармония начинается с маленьких шагов.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- НАПРАВЛЕНИЯ -->
+    <section id="directions" class="container">
+        <h2>Наши направления</h2>
+        <p class="subtitle">Выберите то, что откликается именно вам</p>
+        <div class="directions-grid">
+            <div class="direction-card">
+                <span class="direction-icon">🧘‍♀️</span>
+                <h3>Йога</h3>
+                <p>Мягкие и динамичные практики для гибкости, осанки и снятия напряжения. Хатха, виньяса, йога для начинающих.</p>
+            </div>
+            <div class="direction-card">
+                <span class="direction-icon">🌸</span>
+                <h3>Медитация</h3>
+                <p>Практики осознанности и дыхательные упражнения для спокойствия ума, снижения стресса и глубокого расслабления.</p>
+            </div>
+            <div class="direction-card">
+                <span class="direction-icon">💪</span>
+                <h3>Пилатес</h3>
+                <p>Укрепление мышечного корсета, создание красивого рельефа и улучшение контроля над телом. Мат и реформер.</p>
+            </div>
+            <div class="direction-card">
+                <span class="direction-icon">🌿</span>
+                <h3>Растяжка</h3>
+                <p>Безопасное развитие гибкости, работа с глубокими мышцами и суставами. Идеально после рабочего дня.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- РАСПИСАНИЕ -->
+    <section id="schedule" class="schedule-section">
+        <div class="container">
+            <h2>Расписание занятий</h2>
+            <p class="subtitle">Актуальное расписание на текущую неделю</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr><th>День</th><th>Время</th><th>Занятие</th><th>Тренер</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Понедельник</td><td>10:00</td><td>Хатха-йога</td><td>Анна</td></tr>
+                    <tr><td>Понедельник</td><td>19:00</td><td>Пилатес (Мат)</td><td>Елена</td></tr>
+                    <tr><td>Среда</td><td>09:00</td><td>Медитация</td><td>Мария</td></tr>
+                    <tr><td>Среда</td><td>19:00</td><td>Растяжка</td><td>Ольга</td></tr>
+                    <tr><td>Пятница</td><td>10:00</td><td>Виньяса-флоу</td><td>Анна</td></tr>
+                    <tr><td>Суббота</td><td>11:00</td><td>Пилатес (Реформер)</td><td>Елена</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ТРЕНЕРЫ -->
+    <section id="team" class="container">
+        <h2>Наши тренеры</h2>
+        <p class="subtitle">Люди, которые создают атмосферу заботы</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Анна"></div>
+                <div class="team-info">
+                    <h3>Анна</h3>
+                    <span>Йога</span>
+                    <p>Сертифицированный инструктор хатха-йоги. Помогает найти баланс между телом и дыханием.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-img"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Елена"></div>
+                <div class="team-info">
+                    <h3>Елена</h3>
+                    <span>Пилатес</span>
+                    <p>Специалист по пилатесу и реабилитации. Внимательна к деталям и особенностям каждого тела.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-img"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Мария"></div>
+                <div class="team-info">
+                    <h3>Мария</h3>
+                    <span>Медитация</span>
+                    <p>Практикующий психолог и инструктор медитации. Учит замедляться и слышать себя.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2>Галерея</h2>
+            <p class="subtitle">Атмосфера нашей студии</p>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Занятие йогой"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Пилатес"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Медитация"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Растяжка"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Студия"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Групповое занятие"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Йога на коврике"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Интерьер"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЛАЙТБОКС -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <img src="" alt="Просмотр" id="lightboxImg">
+    </div>
+
+    <!-- ОТЗЫВЫ -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <h2>Отзывы наших клиентов</h2>
+            <p class="subtitle">Истории женщин, которые уже с нами</p>
+            <div class="testimonial-carousel">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-slide">
+                        <p>«Азбука Движения» стала для меня местом силы. Пришла на йогу с нуля, боялась, что не получится. Но атмосфера настолько бережная, что я расслабилась и полюбила практику».</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Екатерина">
+                            <div><strong>Екатерина</strong><span>Йога</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <p>«Хожу на пилатес к Елене уже полгода. Спина перестала болеть, осанка выпрямилась. Очень нравится, что тренер уделяет внимание каждой и не торопит».</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Ольга">
+                            <div><strong>Ольга</strong><span>Пилатес</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <p>«Медитация с Марией — это отдельная любовь. После занятия чувствую, будто перезагрузилась. В студии всегда тихо, уютно и пахнет чем-то вкусным».</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Дарья">
+                            <div><strong>Дарья</strong><span>Медитация</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn">&#10094;</button>
+                    <button class="carousel-btn" id="nextBtn">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Частые вопросы</h2>
+            <p class="subtitle">Всё, что важно знать перед первым визитом</p>
+            <div class="faq-item">
+                <div class="faq-question">Я никогда не занималась йогой. Можно ли прийти с нуля? <span>+</span></div>
+                <div class="faq-answer">Конечно! Большинство наших клиентов начинают с нуля. Инструкторы адаптируют практику под ваш уровень и всегда предлагают упрощённые варианты.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Что взять на первое занятие? <span>+</span></div>
+                <div class="faq-answer">Всё необходимое (коврик, блоки, ремни) есть в студии. Возьмите удобную одежду и бутылку воды. Приходите за 10–15 минут до начала, чтобы спокойно переодеться.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Есть ли занятия для беременных? <span>+</span></div>
+                <div class="faq-answer">Да, у нас есть мягкие практики для будущих мам. Обязательно предупредите инструктора при записи, чтобы мы подобрали безопасную программу.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Как записаться на занятие? <span>+</span></div>
+                <div class="faq-answer">Оставьте заявку в форме ниже или позвоните нам. Мы свяжемся с вами, уточним удобное время и забронируем место.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТЫ -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Контакты и запись</h2>
+            <p class="subtitle">Будем рады видеть вас в нашей студии</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Как нас найти</h3>
+                    <div class="contact-item">
+                        <span class="icon">📍</span>
+                        <p>г. Москва, ул. Примерная, д. 10, стр. 2<br><small>(м. Чистые пруды, 5 мин. пешком)</small></p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">📞</span>
+                        <p><a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">✉️</span>
+                        <p><a href="mailto:hello@azbukadvizhenia.ru">hello@azbukadvizhenia.ru</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">🕒</span>
+                        <p>Ежедневно с 08:00 до 22:00</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" aria-label="Telegram">✈️</a>
+                        <a href="#" aria-label="VK">🔵</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2244.398987654321!2d37.644!3d55.764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTXCsDQ1JzUwLjQiTiAzN8KwMzgnMzguNCJF!5e0!3m2!1sru!2sru!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 1.5rem;">Оставить заявку</h3>
+                    <!-- ЗАМЕНИТЕ YOUR_FORM_ID на ваш ID из Formspree -->
+                    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" name="name" required placeholder="Как к вам обращаться?">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+7 (___) ___-__-__">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="_replyto" placeholder="you@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Что вас интересует?</label>
+                            <select id="interest" name="interest">
+                                <option value="yoga">Йога</option>
+                                <option value="meditation">Медитация</option>
+                                <option value="pilates">Пилатес</option>
+                                <option value="stretching">Растяжка</option>
+                                <option value="all">Всё сразу / Не определилась</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" name="message" placeholder="Ваш вопрос или пожелание по времени..."></textarea>
+                        </div>
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1">
+                        <button type="submit" class="btn">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Азбука Движения</h4>
+                    <p style="color: #bbb; font-size: 0.9rem;">Женская студия йоги, медитации и пилатеса. Пространство гармонии и заботы о себе.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <a href="#about">О студии</a>
+                    <a href="#directions">Направления</a>
+                    <a href="#schedule">Расписание</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <a href="tel:+79991234567">+7 (999) 123-45-67</a>
+                    <a href="mailto:hello@azbukadvizhenia.ru">hello@azbukadvizhenia.ru</a>
+                    <a href="#">г. Москва, ул. Примерная, 10</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Азбука Движения. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Мобильное меню
+        const burger = document.getElementById('burgerBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        burger.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileNav.classList.remove('active'));
+        });
+
+        // Лайтбокс для галереи
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+        lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.classList.remove('active');
+        });
+
+        // Карусель отзывов
+        const track = document.getElementById('testimonialTrack');
+        const slides = track.querySelectorAll('.testimonial-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        });
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+        });
+        // Автопрокрутка
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        }, 6000);
+
+        // FAQ аккордеон
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
